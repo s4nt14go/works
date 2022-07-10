@@ -5,7 +5,7 @@ const getProfile = async (req, res, next) => {
   });
   if (!profile) return res.status(401).end();
   req.profile = profile;
-  req.profileId = profile.get( { plain: true }).id
+  req.profileId = profile.get({ plain: true }).id;
   next();
 };
 module.exports = { getProfile };
