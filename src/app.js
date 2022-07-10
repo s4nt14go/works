@@ -12,12 +12,13 @@ app.set('models', sequelize.models);
  * @returns contract by id
  */
 app.get('/contracts/:id', getProfile, async (req, res) => {
+  const { profileId } = req;
   const { Contract } = req.app.get('models');
   const { id } = req.params;
   const contract = await Contract.findOne({
     where: {
       id,
-      [Op.or]: [{ ContractorId: req.profile }, { ClientId: req.profile }],
+      [Op.or]: [{ ContractorId: profileId }, { ClientId: profileId }],
     },
   });
   if (!contract) return res.status(404).end();
