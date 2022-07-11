@@ -1,3 +1,4 @@
+const { canDeposit } = require('../business/profilesBusiness');
 /**
  * Client deposit
  * @param {string} req.params.userId Profile id
@@ -40,30 +41,13 @@ module.exports.deposit = async (req, res) => {
     include: Job,
   });
 
-  let jobsToPay = 0;
-  contracts.map((contract) => {
-    contract.Jobs.map((job) => {
-      if (!job.paid) {
-        jobsToPay += job.price;
-      }
-    });
-  });
-
-  // A client can't deposit more than 25% his total of jobs to pay
-  const maxDeposit = jobsToPay / 4;
-  if (maxDeposit === 0)
+  const result = canDeposit({ contracts, client, deposit });
+  if (result.isFailure)
     return res
-      .status(400)
+      .status(result.error.httpStatus)
       .send({
-        message: `Client doesn't have jobs to pay`,
-      })
-      .end();
-
-  if (deposit > maxDeposit)
-    return res
-      .status(400)
-      .send({
-        message: `Client can't deposit more than 25% his total of jobs to pay. Maximum deposit allowed: ${maxDeposit}`,
+        message: result.error.message,
+        type: result.error.type,
       })
       .end();
 

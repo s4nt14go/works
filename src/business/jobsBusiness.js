@@ -2,11 +2,9 @@ const { JobIsAlreadyPaid, JobNotFound, NotEnoughFunds } = require('./JobsErrors'
 const Result = require('../util/Result');
 
 /**
- * Check client can pays for the job
- * @param {number} jobId Job id
- * @param {Object[]} contracts Client contracts
- * @param {Object} client Client profile
- * @returns {Object} Contract and job when success, error when failure
+ * Check client can pay for the job
+ * @param {Object} _ Job id, client contracts and client profile
+ * @returns {Result} Success or failure
  */
 module.exports.canPayJob = ({ jobId, contracts, client }) => {
   let jobFound = false,
