@@ -31,6 +31,16 @@ app.get(
 );
 
 /**
+ * Get all unpaid jobs for a user (either a client or contractor), for active contracts only
+ * @returns jobs
+ */
+app.get(
+  '/jobs/unpaid',
+  getProfile,
+  async (req, res) => await jobsController.getUnpaid(req, res)
+);
+
+/**
  * Client pays for a job
  * @returns void
  */

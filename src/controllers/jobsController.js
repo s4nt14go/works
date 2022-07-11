@@ -1,4 +1,5 @@
 const { sequelize } = require('../model');
+const { Op } = require('sequelize');
 
 module.exports.clientPays = async (req, res) => {
   const { profile } = req;
@@ -81,4 +82,34 @@ module.exports.clientPays = async (req, res) => {
   await paymentTransaction.commit();
 
   res.json();
+};
+
+module.exports.getUnpaid = async (req, res) => {
+  const { profile } = req;
+
+  const { Contract, Job } = req.app.get('models');
+
+  const contracts = await Contract.findAll({
+    where: {
+      status: 'in_progress',
+      [Op.or]: [{ ContractorId: profile.id }, { ClientId: profile.id }],
+    },
+    include: {
+      model: Job,
+      where: {
+        paid: {
+          [Op.not]: true,
+        },
+      },
+    },
+  });
+
+  const unpaidJobs = [];
+  contracts.map((contract) => {
+    contract.Jobs.map((job) => {
+      unpaidJobs.push(job.get());
+    });
+  });
+
+  res.json(unpaidJobs);
 };
