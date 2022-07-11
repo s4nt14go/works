@@ -3,7 +3,7 @@ const {
   JobIsAlreadyPaid,
   JobNotFound,
   NotEnoughFunds,
-} = require('./jobsErrors');
+} = require('./JobsErrors');
 const Result = require('../util/Result');
 
 /**
