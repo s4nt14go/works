@@ -33,8 +33,10 @@ module.exports.clientPays = async (req, res) => {
 
   let jobFound = false,
     contractFound = false;
-  contracts.map((contract) => {
-    contract.Jobs.map((job) => {
+
+  for (let i = 0; i < contracts.length; i++) {
+    for (let j = 0; j < contracts[i].Jobs.length; j++) {
+      const job = contracts[i].Jobs[j];
       if (job.id === jobId) {
         if (job.paid) {
           return res
@@ -45,10 +47,11 @@ module.exports.clientPays = async (req, res) => {
             .end();
         }
         jobFound = job;
-        contractFound = contract;
+        contractFound = contracts[i];
       }
-    });
-  });
+    }
+  }
+
   if (!jobFound)
     return res
       .status(404)
@@ -77,7 +80,7 @@ module.exports.clientPays = async (req, res) => {
     { balance: jobFound.price },
     { transaction: paymentTransaction }
   );
-  jobFound.paid = true;
+  jobFound['paid'] = true;
   await jobFound.save({ transaction: paymentTransaction });
   await paymentTransaction.commit();
 
