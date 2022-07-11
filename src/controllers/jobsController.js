@@ -1,6 +1,11 @@
 const { sequelize } = require('../model');
 const { Op } = require('sequelize');
 
+/**
+ * Client pays for a job
+ * @param {string} req.params.job_id Job id
+ * @returns void
+ */
 module.exports.clientPays = async (req, res) => {
   const { profile } = req;
   if (profile.type !== 'client')
@@ -87,6 +92,10 @@ module.exports.clientPays = async (req, res) => {
   res.json();
 };
 
+/**
+ * Get all unpaid jobs for a user (either a client or contractor), for active contracts only
+ * @returns jobs
+ */
 module.exports.getUnpaid = async (req, res) => {
   const { profile } = req;
 

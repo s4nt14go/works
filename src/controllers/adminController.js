@@ -1,6 +1,12 @@
 const { Op } = require('sequelize');
 const { sequelize } = require('../model');
 
+/**
+ * Returns the profession that earned the most money (sum of jobs paid) for any contactor that worked in the query time range
+ * @param {Date} req.start Starting date
+ * @param {Date} req.end Ending date
+ * @returns profession
+ */
 module.exports.bestProfession = async (req, res) => {
   const { start, end } = req.query;
 
@@ -45,6 +51,12 @@ module.exports.bestProfession = async (req, res) => {
   });
 };
 
+/**
+ * Returns the clients that paid the most for jobs in the query time range
+ * @param {Date} req.query.start Starting date
+ * @param {Date} req.query.end Ending date
+ * @returns clients
+ */
 module.exports.bestClients = async (req, res) => {
   const { start, end, limit } = req.query;
 

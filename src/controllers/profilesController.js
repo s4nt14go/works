@@ -1,3 +1,9 @@
+/**
+ * Client deposit
+ * @param {string} req.params.userId Profile id
+ * @param {number} req.body.deposit Amount
+ * @returns void
+ */
 module.exports.deposit = async (req, res) => {
   const { userId } = req.params;
   const { deposit: depositRaw } = req.body;
