@@ -12,7 +12,7 @@ router.get('/contracts/:id', getProfile, (req, res) =>
 );
 
 router.get('/contracts', getProfile, (req, res) =>
-  contractsController.byUser(req, res)
+  contractsController.getContracts(req, res)
 );
 
 router.get('/jobs/unpaid', getProfile, (req, res) =>

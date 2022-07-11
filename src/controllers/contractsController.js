@@ -4,7 +4,7 @@ const { Op } = require('sequelize');
  * Returns a list of non terminated contracts belonging to a user (client or contractor)
  * @returns contracts
  */
-module.exports.byUser = async (req, res) => {
+module.exports.getContracts = async (req, res) => {
   const { profile } = req;
   const { Contract } = req.app.get('models');
   const contracts = await Contract.findAll({
