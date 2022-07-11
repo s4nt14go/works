@@ -250,7 +250,8 @@ app.get('/admin/best-profession', async (req, res) => {
     ],
   });
 
-  if (!jobs.length) return res
+  if (!jobs.length)
+    return res
       .status(404)
       .send({
         message: `No paid jobs found between ${start} and ${end}`,
@@ -259,6 +260,58 @@ app.get('/admin/best-profession', async (req, res) => {
 
   res.json({
     profession: jobs[0].Contract.Contractor.profession,
+  });
+});
+
+/**
+ * Returns the client that paid the most for jobs in the query time range
+ * @returns profession
+ */
+app.get('/admin/best-clients', async (req, res) => {
+  const { start, end, limit } = req.query;
+
+  const { Profile, Contract, Job } = req.app.get('models');
+
+  const jobs = await Job.findAll({
+    attributes: [[sequelize.fn('sum', sequelize.col('price')), 'totalPaid']],
+    order: [[sequelize.fn('sum', sequelize.col('price')), 'DESC']],
+    group: ['Contract.Client.id'],
+    limit: limit || 2,
+    where: {
+      paid: true,
+      paymentDate: {
+        [Op.between]: [start, end],
+      },
+    },
+    include: [
+      {
+        model: Contract,
+        include: [
+          {
+            model: Profile,
+            as: 'Client',
+            where: { type: 'client' },
+            attributes: ['id', 'firstName', 'lastName'],
+          },
+        ],
+      },
+    ],
+  });
+
+  if (!jobs.length)
+    return res
+      .status(404)
+      .send({
+        message: `No paid jobs found between ${start} and ${end}`,
+      })
+      .end();
+
+  const { totalPaid: paid } = jobs[0].get();
+  const { id, firstName, lastName } = jobs[0].Contract.Client;
+  res.json({
+    id,
+    fullName: `${firstName} ${lastName}`,
+    paid,
   });
 });
 
