@@ -17,7 +17,7 @@ app.set('models', sequelize.models);
 app.get(
   '/contracts/:id',
   getProfile,
-  async (req, res) => await contractsController.byId(req, res)
+  (req, res) => contractsController.byId(req, res)
 );
 
 /**
@@ -27,7 +27,7 @@ app.get(
 app.get(
   '/contracts',
   getProfile,
-  async (req, res) => await contractsController.byUser(req, res)
+  (req, res) => contractsController.byUser(req, res)
 );
 
 /**
@@ -37,7 +37,7 @@ app.get(
 app.get(
   '/jobs/unpaid',
   getProfile,
-  async (req, res) => await jobsController.getUnpaid(req, res)
+  (req, res) => jobsController.getUnpaid(req, res)
 );
 
 /**
@@ -47,7 +47,7 @@ app.get(
 app.post(
   '/jobs/:job_id/pay',
   getProfile,
-  async (req, res) => await jobsController.clientPays(req, res)
+  (req, res) => jobsController.clientPays(req, res)
 );
 
 /**
@@ -56,7 +56,7 @@ app.post(
  */
 app.post(
   '/balances/deposit/:userId',
-  async (req, res) => await profilesController.deposit(req, res)
+  (req, res) => profilesController.deposit(req, res)
 );
 
 /**
@@ -65,7 +65,7 @@ app.post(
  */
 app.get(
   '/admin/best-profession',
-  async (req, res) => await adminController.bestProfession(req, res)
+  (req, res) => adminController.bestProfession(req, res)
 );
 
 /**
@@ -74,7 +74,7 @@ app.get(
  */
 app.get(
   '/admin/best-clients',
-  async (req, res) => await adminController.bestClients(req, res)
+  (req, res) => adminController.bestClients(req, res)
 );
 
 module.exports = app;
