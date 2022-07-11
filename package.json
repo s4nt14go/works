@@ -14,7 +14,9 @@
     "prettier-format": "prettier --config .prettierrc '**/*.js' --write",
     "prettier-check": "prettier --config .prettierrc '**/*.js' --check",
     "prepare": "husky install",
-    "test": "jest"
+    "test": "npm run test-unit && npm run test-int",
+    "test-unit": "TEST_MODE=unit jest -c jest.config.js",
+    "test-int": "TEST_MODE=int jest -c jest.config.js"
   },
   "devDependencies": {
     "concurrently": "4.1.0",

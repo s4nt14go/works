@@ -12,8 +12,8 @@ describe('GET /contracts/:id', () => {
         .get(`/contracts/${contractId}`)
         .set('profile_id', `${profile_id}`);
 
-      expect(response.status).toEqual(200);
-      expect(response.body.id).toEqual(contractId);
+      expect(response.status).toBe(200);
+      expect(response.body.id).toBe(contractId);
       expect([response.body.ContractorId, response.body.ClientId]).toContain(
         profile_id
       );
@@ -28,7 +28,7 @@ describe('GET /contracts/:id', () => {
       .get(`/contracts/${contractId}`)
       .set('profile_id', `${profile_id}`);
 
-    expect(response.status).toEqual(404);
+    expect(response.status).toBe(404);
   });
 });
 
@@ -40,8 +40,8 @@ describe('GET /contracts', () => {
       .get(`/contracts`)
       .set('profile_id', `${profile_id}`);
 
-    expect(response.status).toEqual(200);
-    expect(response.body).toEqual(
+    expect(response.status).toBe(200);
+    expect(response.body).toStrictEqual(
       expect.arrayContaining([
         expect.objectContaining({
           status: expect.not.stringContaining('terminated'),

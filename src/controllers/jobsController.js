@@ -1,5 +1,6 @@
 const { sequelize } = require('../model');
 const { Op } = require('sequelize');
+const { canPayJob } = require('../business/jobsBusiness');
 
 /**
  * Client pays for a job
@@ -27,66 +28,32 @@ module.exports.clientPays = async (req, res) => {
 
   const { job_id } = req.params;
 
-  const jobId = Number(job_id);
-  if (isNaN(jobId))
+  const result = canPayJob({job_id, contracts, client: profile});
+  if (result.isFailure)
     return res
-      .status(400)
+      .status(result.error.httpStatus)
       .send({
-        message: `Job id received isn't a number: ${job_id}`,
+        message: result.error.message,
+        type: result.error.type,
       })
       .end();
 
-  let jobFound = false,
-    contractFound = false;
-
-  for (let i = 0; i < contracts.length; i++) {
-    for (let j = 0; j < contracts[i].Jobs.length; j++) {
-      const job = contracts[i].Jobs[j];
-      if (job.id === jobId) {
-        if (job.paid) {
-          return res
-            .status(403)
-            .send({
-              message: `Job ${job.id} is already paid`,
-            })
-            .end();
-        }
-        jobFound = job;
-        contractFound = contracts[i];
-      }
-    }
-  }
-
-  if (!jobFound)
-    return res
-      .status(404)
-      .send({
-        message: `Job ${jobId} wasn't found for client ${profile.id}`,
-      })
-      .end();
-
-  if (profile.balance < jobFound.price)
-    return res
-      .status(409)
-      .send({
-        message: `Client ${profile.id} don't have enough funds to pay job ${jobFound.id}`,
-      })
-      .end();
-
-  const contractor = await Profile.findByPk(contractFound.ContractorId);
+  const { contract, job } = result.value;
+  const contractor = await Profile.findByPk(contract.ContractorId);
 
   // As all the checks passed we can make the payment
   const paymentTransaction = await sequelize.transaction();
   await profile.decrement(
-    { balance: jobFound.price },
+    { balance: job.price },
     { transaction: paymentTransaction }
   );
   await contractor.increment(
-    { balance: jobFound.price },
+    { balance: job.price },
     { transaction: paymentTransaction }
   );
-  jobFound['paid'] = true;
-  await jobFound.save({ transaction: paymentTransaction });
+  job['paid'] = true;
+  job['paymentDate'] = new Date().toJSON();
+  await job.save({ transaction: paymentTransaction });
   await paymentTransaction.commit();
 
   res.json();
