@@ -13,13 +13,16 @@
     "seed": "node ./scripts/seedDb.js",
     "prettier-format": "prettier --config .prettierrc '**/*.js' --write",
     "prettier-check": "prettier --config .prettierrc '**/*.js' --check",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test": "jest"
   },
   "devDependencies": {
     "concurrently": "4.1.0",
+    "husky": "^8.0.0",
+    "jest": "^28.1.2",
     "nodemon": "1.19.1",
     "prettier": "^2.7.1",
-    "husky": "^8.0.0"
+    "supertest": "^6.2.4"
   },
   "engines": {
     "node": ">=10.16.3"
