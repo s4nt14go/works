@@ -17,6 +17,16 @@ module.exports.clientPays = async (req, res) => {
       })
       .end();
 
+  const { job_id } = req.params;
+  const jobId = Number(job_id);
+  if (isNaN(jobId))
+    return res
+      .status(400)
+      .send({
+        message: `Job id received isn't a number: ${job_id}`,
+      })
+      .end();
+
   const { Contract, Job, Profile } = req.app.get('models');
 
   const contracts = await Contract.findAll({
@@ -26,9 +36,7 @@ module.exports.clientPays = async (req, res) => {
     include: Job,
   });
 
-  const { job_id } = req.params;
-
-  const result = canPayJob({ job_id, contracts, client: profile });
+  const result = canPayJob({ jobId, contracts, client: profile });
   if (result.isFailure)
     return res
       .status(result.error.httpStatus)

@@ -2,7 +2,7 @@ const { canPayJob } = require('./jobsBusiness');
 
 test(`Client can pay job`, () => {
   const result = canPayJob({
-    job_id: '2',
+    jobId: 2,
     contracts: contractsWithJobNotPaid,
     client,
   });
@@ -13,7 +13,7 @@ test(`Client can pay job`, () => {
 
 test(`Client can't a pay job if it's already paid`, () => {
   const result = canPayJob({
-    job_id: '2',
+    jobId: 2,
     contracts: contractsWithJobPaid,
     client,
   });
@@ -23,19 +23,9 @@ test(`Client can't a pay job if it's already paid`, () => {
   expect(result.error.httpStatus).toBe(409);
 });
 
-test(`Invalid job id should fail`, () => {
-  const result = canPayJob({
-    job_id: 'invalid',
-  });
-
-  expect(result.isFailure).toBe(true);
-  expect(result.error.type).toBe('InvalidJobId');
-  expect(result.error.httpStatus).toBe(400);
-});
-
 test(`Trying to pay a job of a different client should fail`, () => {
   const result = canPayJob({
-    job_id: '3',
+    jobId: 3,
     contracts: contractsWithJobNotPaid,
     client,
   });
@@ -232,7 +222,7 @@ const client = {
   updatedAt: '2022-07-11T20:30:26.998Z',
 };
 const notEnoughFundsData = {
-  job_id: '5',
+  jobId: 5,
   contracts: [
     {
       id: 7,

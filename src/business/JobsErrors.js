@@ -1,11 +1,5 @@
 const BaseError = require('../util/BaseError');
 
-class InvalidJobId extends BaseError {
-  constructor(job_id) {
-    super(`Job id received isn't a number: ${job_id}`, 400);
-  }
-}
-
 class JobIsAlreadyPaid extends BaseError {
   constructor(id) {
     super(`Job ${id} is already paid`, 409);
@@ -24,4 +18,4 @@ class NotEnoughFunds extends BaseError {
   }
 }
 
-module.exports = { InvalidJobId, JobIsAlreadyPaid, JobNotFound, NotEnoughFunds };
+module.exports = { JobIsAlreadyPaid, JobNotFound, NotEnoughFunds };

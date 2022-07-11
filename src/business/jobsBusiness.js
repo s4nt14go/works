@@ -1,22 +1,14 @@
-const {
-  InvalidJobId,
-  JobIsAlreadyPaid,
-  JobNotFound,
-  NotEnoughFunds,
-} = require('./JobsErrors');
+const { JobIsAlreadyPaid, JobNotFound, NotEnoughFunds } = require('./JobsErrors');
 const Result = require('../util/Result');
 
 /**
  * Check client can pays for the job
- * @param {number} job_id Job id
+ * @param {number} jobId Job id
  * @param {Object[]} contracts Client contracts
  * @param {Object} client Client profile
  * @returns {Object} Contract and job when success, error when failure
  */
-module.exports.canPayJob = ({ job_id, contracts, client }) => {
-  const jobId = Number(job_id);
-  if (isNaN(jobId)) return Result.fail(new InvalidJobId(job_id));
-
+module.exports.canPayJob = ({ jobId, contracts, client }) => {
   let jobFound = false,
     contractFound = false;
 
