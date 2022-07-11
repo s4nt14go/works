@@ -13,7 +13,7 @@ const Result = require('../util/Result');
  * @param {Object} client Client profile
  * @returns {Object} Contract and job when success, error when failure
  */
-module.exports.canPayJob = ({job_id, contracts, client}) => {
+module.exports.canPayJob = ({ job_id, contracts, client }) => {
   const jobId = Number(job_id);
   if (isNaN(jobId)) return Result.fail(new InvalidJobId(job_id));
 

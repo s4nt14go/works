@@ -1,5 +1,5 @@
 let testRegex = '\\.(js)$';
-switch (process.env.TEST_MODE) {  // eslint-disable-line no-undef
+switch (process.env.TEST_MODE) {
   case 'unit':
     testRegex = '\\.unit' + testRegex;
     break;

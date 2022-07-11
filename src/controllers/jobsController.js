@@ -28,7 +28,7 @@ module.exports.clientPays = async (req, res) => {
 
   const { job_id } = req.params;
 
-  const result = canPayJob({job_id, contracts, client: profile});
+  const result = canPayJob({ job_id, contracts, client: profile });
   if (result.isFailure)
     return res
       .status(result.error.httpStatus)
