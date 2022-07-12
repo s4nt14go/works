@@ -13,10 +13,11 @@ describe('GET /contracts/:id', () => {
         .set('profile_id', `${profile_id}`);
 
       expect(response.status).toBe(200);
-      expect(response.body.id).toBe(contractId);
-      expect([response.body.ContractorId, response.body.ClientId]).toContain(
-        profile_id
-      );
+      expect(response.body.contract.id).toBe(contractId);
+      expect([
+        response.body.contract.ContractorId,
+        response.body.contract.ClientId,
+      ]).toContain(profile_id);
     }
   );
 

@@ -6,6 +6,13 @@ class NonTerminatedContractsNotFound extends BaseError {
   }
 }
 
+class ContractNotFound extends BaseError {
+  constructor(id, profileId) {
+    super(`Contract ${id} wasn't found for profile id ${profileId}`, 404);
+  }
+}
+
 module.exports = {
   NonTerminatedContractsNotFound,
+  ContractNotFound,
 };

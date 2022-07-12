@@ -1,10 +1,13 @@
 const { getProfile } = require('./../../middleware/getProfile');
-const contractsController = require('./../../modules/contracts/contractsController');
 const { Router } = require('express');
 const GetContractsController = require('./GetContractsController');
+const GetByIdController = require('./GetByIdController');
 const router = new Router();
 
-router.get('/:id', getProfile, (req, res) => contractsController.byId(req, res));
+router.get('/:id', getProfile, async (req, res) => {
+  const getById = new GetByIdController(req, res);
+  return await getById.execute();
+});
 
 router.get('/', getProfile, async (req, res) => {
   const getContracts = new GetContractsController(req, res);
