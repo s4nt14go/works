@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const BestProfessionController = require('./BestProfessionController');
-const BestClientsController = require("./BestClientsController");
+const BestClientsController = require('./BestClientsController');
 const router = new Router();
 
 router.get('/best-profession', async (req, res) => {
