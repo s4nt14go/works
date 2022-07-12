@@ -1,5 +1,5 @@
 const { JobIsAlreadyPaid, JobNotFound, NotEnoughFunds } = require('./JobsErrors');
-const Result = require('../util/Result');
+const Result = require('../../util/Result');
 
 /**
  * Check client can pay for the job

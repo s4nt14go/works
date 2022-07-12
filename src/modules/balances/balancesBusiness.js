@@ -1,5 +1,5 @@
-const Result = require('../util/Result');
-const { NoJobsToPay, MaximumDepositExceeded } = require('./ProfilesErrors');
+const Result = require('../../util/Result');
+const { NoJobsToPay, MaximumDepositExceeded } = require('./BalancesErrors');
 
 /**
  * Check client deposit doesn't exceed maximum amount

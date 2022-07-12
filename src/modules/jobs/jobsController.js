@@ -1,6 +1,6 @@
-const { sequelize } = require('../model');
+const { sequelize } = require('../../model');
 const { Op } = require('sequelize');
-const { canPayJob } = require('../business/jobsBusiness');
+const { canPayJob } = require('./jobsBusiness');
 
 /**
  * Client pays for a job

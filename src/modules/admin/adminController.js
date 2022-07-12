@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const { sequelize } = require('../model');
+const { sequelize } = require('../../model');
 
 /**
  * Returns the profession that earned the most money (sum of jobs paid) for any contactor that worked in the query time range

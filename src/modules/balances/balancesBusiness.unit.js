@@ -1,4 +1,4 @@
-const { canDeposit } = require('./profilesBusiness');
+const { canDeposit } = require('./balancesBusiness');
 
 test(`Client can deposit`, () => {
   const result = canDeposit({

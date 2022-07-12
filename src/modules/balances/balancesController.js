@@ -1,4 +1,4 @@
-const { canDeposit } = require('../business/profilesBusiness');
+const { canDeposit } = require('./balancesBusiness');
 /**
  * Client deposit
  * @param {string} req.params.userId Profile id

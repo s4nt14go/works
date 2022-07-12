@@ -1,4 +1,4 @@
-const BaseError = require('../util/BaseError');
+const BaseError = require('../../util/BaseError');
 
 class NoJobsToPay extends BaseError {
   constructor(clientId) {
