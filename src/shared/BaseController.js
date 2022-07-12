@@ -17,14 +17,14 @@ class BaseController {
     try {
       await this.executeImpl(this.req, this.res);
     } catch (err) {
-      await this.transaction.rollback();
+      if (this.transaction) await this.transaction.rollback();
       console.log(`An unexpected error occurred`, err);
       await this.fail(new AppError());
     }
   }
 
   async ok(result) {
-    await this.transaction.commit();
+    if (this.transaction) await this.transaction.commit();
     this.res.json({
       ...result,
       time: new Date().toJSON(),
@@ -32,7 +32,7 @@ class BaseController {
   }
 
   async fail(error) {
-    await this.transaction.rollback();
+    if (this.transaction) await this.transaction.rollback();
     const { httpStatus, message, type, time } = error;
     this.res
       .status(httpStatus)
