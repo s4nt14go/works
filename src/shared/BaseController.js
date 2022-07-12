@@ -1,4 +1,4 @@
-const { AppError } = require('../../util/AppErrors');
+const { AppError } = require('./AppErrors');
 
 class BaseController {
   constructor(req, res, transaction) {

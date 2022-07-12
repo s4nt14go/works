@@ -1,5 +1,5 @@
 const { getProfile } = require('./../../middleware/getProfile');
-const jobsController = require('./jobsController');
+const jobsController = require('./getUnpaidController');
 const ClientPayController = require('./ClientPaysController');
 const { Router } = require('express');
 const { sequelize } = require('../../model');

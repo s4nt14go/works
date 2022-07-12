@@ -1,4 +1,4 @@
-const Result = require('../../util/Result');
+const Result = require('../../shared/Result');
 const { NoJobsToPay, MaximumDepositExceeded } = require('./BalancesErrors');
 
 /**
