@@ -41,7 +41,7 @@ describe('GET /contracts', () => {
       .set('profile_id', `${profile_id}`);
 
     expect(response.status).toBe(200);
-    expect(response.body).toStrictEqual(
+    expect(response.body.contracts).toStrictEqual(
       expect.arrayContaining([
         expect.objectContaining({
           status: expect.not.stringContaining('terminated'),
