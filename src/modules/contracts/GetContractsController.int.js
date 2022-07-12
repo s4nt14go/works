@@ -1,5 +1,5 @@
-const request = require("supertest");
-const app = require("../../app");
+const request = require('supertest');
+const app = require('../../app');
 
 it(`should return non terminated contracts for the profile`, async () => {
   const profile_id = 1;
