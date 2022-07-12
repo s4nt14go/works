@@ -1,6 +1,6 @@
-const adminController = require('./../../modules/admin/adminController');
 const { Router } = require('express');
 const BestProfessionController = require('./BestProfessionController');
+const BestClientsController = require("./BestClientsController");
 const router = new Router();
 
 router.get('/best-profession', async (req, res) => {
@@ -8,6 +8,9 @@ router.get('/best-profession', async (req, res) => {
   return await bestProfession.execute();
 });
 
-router.get('/best-clients', (req, res) => adminController.bestClients(req, res));
+router.get('/best-clients', async (req, res) => {
+  const bestClients = new BestClientsController(req, res);
+  return await bestClients.execute();
+});
 
 module.exports = router;
