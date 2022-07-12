@@ -15,4 +15,21 @@ class MaximumDepositExceeded extends BaseError {
   }
 }
 
-module.exports = { NoJobsToPay, MaximumDepositExceeded };
+class DepositNotAnumber extends BaseError {
+  constructor(deposit) {
+    super(`Deposit isn't a number: ${deposit}`, 400);
+  }
+}
+
+class NoClientFound extends BaseError {
+  constructor(id) {
+    super(`No client found with id: ${id}`, 401);
+  }
+}
+
+module.exports = {
+  NoJobsToPay,
+  MaximumDepositExceeded,
+  DepositNotAnumber,
+  NoClientFound,
+};
