@@ -88,7 +88,8 @@ Run them with `npm run test-unit`
 ### Integration Tests
 
 - `src/modules/balances/DepositController.int.js`
-- `src/modules/contracts/contractsController.int.js`
+- `src/modules/contracts/GetByIdController.int.js`
+- `src/modules/contracts/GetContractsController.int.js`
 
 Run them with `npm run test-int`
 
