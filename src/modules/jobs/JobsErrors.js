@@ -18,4 +18,22 @@ class NotEnoughFunds extends BaseError {
   }
 }
 
-module.exports = { JobIsAlreadyPaid, JobNotFound, NotEnoughFunds };
+class ClientNotFound extends BaseError {
+  constructor(id) {
+    super(`There is no client with id: ${id}`, 404);
+  }
+}
+
+class JobIdNotAnumber extends BaseError {
+  constructor(id) {
+    super(`Job id received isn't a number: ${id}`, 400);
+  }
+}
+
+module.exports = {
+  JobIsAlreadyPaid,
+  JobNotFound,
+  NotEnoughFunds,
+  ClientNotFound,
+  JobIdNotAnumber,
+};
