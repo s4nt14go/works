@@ -27,11 +27,11 @@ class Result {
   get value() {
     if (!this.isSuccess) {
       console.log('this:', this);
-      throw new Error("Can't cast value when Result didn't succeeded.");
+      throw new Error("Can't get value when Result didn't succeeded.");
     }
     if (this._value === undefined) {
       console.log('this:', this);
-      throw new Error(`Can't cast value when Result._value is undefined.`);
+      throw new Error(`Can't get value when Result._value is undefined.`);
     }
     return this._value;
   }
