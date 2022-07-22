@@ -4,14 +4,16 @@ const { DepositNotAnumber, NoClientFound } = require('./BalancesErrors');
 
 /**
  * Client pays for a job
- * @param {string} req.params.job_id Job id
- * @returns void
  */
 class DepositController extends BaseController {
   constructor(req, res, transaction) {
     super(req, res, transaction);
   }
 
+  /**
+   * @param {string} req.params.job_id Job id
+   * @returns void
+   */
   async executeImpl(req, res) {
     const transaction = this.transaction;
     const { userId } = req.params;
