@@ -1,7 +1,7 @@
 const { canPayJob } = require('./jobsBusiness');
 const BaseController = require('../../shared/BaseController');
 const { ClientNotFound, JobIdNotAnumber } = require('./JobsErrors');
-const { NoClientFound } = require('../../shared/AppErrors');
+const { NoClientFound } = require('../../shared/Errors');
 
 /**
  * Client pays for a job

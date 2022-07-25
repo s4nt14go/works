@@ -1,7 +1,7 @@
 const { canDeposit } = require('./balancesBusiness');
 const BaseController = require('../../shared/BaseController');
 const { DepositNotAnumber } = require('./BalancesErrors');
-const { NoClientFound } = require('../../shared/AppErrors');
+const { NoClientFound } = require('../../shared/Errors');
 
 /**
  * Client pays for a job
