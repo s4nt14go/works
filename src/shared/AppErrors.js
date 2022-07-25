@@ -6,6 +6,13 @@ class AppError extends BaseError {
   }
 }
 
+class NoClientFound extends BaseError {
+  constructor(id) {
+    super(`No client found with id: ${id}`, 401);
+  }
+}
+
 module.exports = {
   AppError,
+  NoClientFound,
 };

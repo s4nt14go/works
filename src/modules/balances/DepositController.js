@@ -1,6 +1,7 @@
 const { canDeposit } = require('./balancesBusiness');
 const BaseController = require('../../shared/BaseController');
-const { DepositNotAnumber, NoClientFound } = require('./BalancesErrors');
+const { DepositNotAnumber } = require('./BalancesErrors');
+const { NoClientFound } = require('../../shared/AppErrors');
 
 /**
  * Client pays for a job
@@ -31,7 +32,7 @@ class DepositController extends BaseController {
           type: 'client',
         },
       },
-      { transaction, lock: true }
+      { transaction }
     );
     if (!client) return this.fail(new NoClientFound(userId));
 
@@ -42,7 +43,7 @@ class DepositController extends BaseController {
         },
         include: Job,
       },
-      { transaction, lock: true }
+      { transaction }
     );
 
     const result = canDeposit({ contracts, client, deposit });
